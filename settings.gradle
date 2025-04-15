@@ -1,0 +1,8 @@
+rootProject.name = 'buterin'
+include 'buterin-api'
+include 'buterin-sample-api'
+include 'buterin-service'
+include 'buterin-repository'
+include 'buterin-common'
+include 'buterin-sample-api'
+

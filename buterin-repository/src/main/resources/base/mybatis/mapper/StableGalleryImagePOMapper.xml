@@ -1,0 +1,520 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aigccafe.buterin.repository.mapper.StableGalleryImagePOMapper">
+  <resultMap id="BaseResultMap" type="com.aigccafe.buterin.common.model.md.StableGalleryImagePO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="source" jdbcType="VARCHAR" property="source" />
+    <result column="image_id" jdbcType="VARCHAR" property="imageId" />
+    <result column="model_id" jdbcType="BIGINT" property="modelId" />
+    <result column="model_name" jdbcType="VARCHAR" property="modelName" />
+    <result column="version_id" jdbcType="BIGINT" property="versionId" />
+    <result column="version_name" jdbcType="VARCHAR" property="versionName" />
+    <result column="raw_url" jdbcType="VARCHAR" property="rawUrl" />
+    <result column="raw_image_path" jdbcType="VARCHAR" property="rawImagePath" />
+    <result column="image_path" jdbcType="VARCHAR" property="imagePath" />
+    <result column="price" jdbcType="DOUBLE" property="price" />
+    <result column="view_cnt" jdbcType="INTEGER" property="viewCnt" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="created_at" jdbcType="BIGINT" property="createdAt" />
+    <result column="updated_at" jdbcType="BIGINT" property="updatedAt" />
+    <result column="is_deleted" jdbcType="INTEGER" property="isDeleted" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.aigccafe.buterin.common.model.md.StableGalleryImagePOWithBLOBs">
+    <result column="meta" jdbcType="LONGVARCHAR" property="meta" />
+    <result column="cn_meta" jdbcType="LONGVARCHAR" property="cnMeta" />
+    <result column="author_info" jdbcType="LONGVARCHAR" property="authorInfo" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, source, image_id, model_id, model_name, version_id, version_name, raw_url, raw_image_path, 
+    image_path, price, view_cnt, status, created_at, updated_at, is_deleted
+  </sql>
+  <sql id="Blob_Column_List">
+    meta, cn_meta, author_info
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.aigccafe.buterin.common.model.md.StableGalleryImagePOExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from stable_gallery_image
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.aigccafe.buterin.common.model.md.StableGalleryImagePOExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from stable_gallery_image
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from stable_gallery_image
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from stable_gallery_image
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.aigccafe.buterin.common.model.md.StableGalleryImagePOExample">
+    delete from stable_gallery_image
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.aigccafe.buterin.common.model.md.StableGalleryImagePOWithBLOBs" useGeneratedKeys="true">
+    insert into stable_gallery_image (source, image_id, model_id, 
+      model_name, version_id, version_name, 
+      raw_url, raw_image_path, image_path, 
+      price, view_cnt, status, 
+      created_at, updated_at, is_deleted, 
+      meta, cn_meta, author_info
+      )
+    values (#{source,jdbcType=VARCHAR}, #{imageId,jdbcType=VARCHAR}, #{modelId,jdbcType=BIGINT}, 
+      #{modelName,jdbcType=VARCHAR}, #{versionId,jdbcType=BIGINT}, #{versionName,jdbcType=VARCHAR}, 
+      #{rawUrl,jdbcType=VARCHAR}, #{rawImagePath,jdbcType=VARCHAR}, #{imagePath,jdbcType=VARCHAR}, 
+      #{price,jdbcType=DOUBLE}, #{viewCnt,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR}, 
+      #{createdAt,jdbcType=BIGINT}, #{updatedAt,jdbcType=BIGINT}, #{isDeleted,jdbcType=INTEGER}, 
+      #{meta,jdbcType=LONGVARCHAR}, #{cnMeta,jdbcType=LONGVARCHAR}, #{authorInfo,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.aigccafe.buterin.common.model.md.StableGalleryImagePOWithBLOBs" useGeneratedKeys="true">
+    insert into stable_gallery_image
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="source != null">
+        source,
+      </if>
+      <if test="imageId != null">
+        image_id,
+      </if>
+      <if test="modelId != null">
+        model_id,
+      </if>
+      <if test="modelName != null">
+        model_name,
+      </if>
+      <if test="versionId != null">
+        version_id,
+      </if>
+      <if test="versionName != null">
+        version_name,
+      </if>
+      <if test="rawUrl != null">
+        raw_url,
+      </if>
+      <if test="rawImagePath != null">
+        raw_image_path,
+      </if>
+      <if test="imagePath != null">
+        image_path,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="viewCnt != null">
+        view_cnt,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="updatedAt != null">
+        updated_at,
+      </if>
+      <if test="isDeleted != null">
+        is_deleted,
+      </if>
+      <if test="meta != null">
+        meta,
+      </if>
+      <if test="cnMeta != null">
+        cn_meta,
+      </if>
+      <if test="authorInfo != null">
+        author_info,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="source != null">
+        #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="imageId != null">
+        #{imageId,jdbcType=VARCHAR},
+      </if>
+      <if test="modelId != null">
+        #{modelId,jdbcType=BIGINT},
+      </if>
+      <if test="modelName != null">
+        #{modelName,jdbcType=VARCHAR},
+      </if>
+      <if test="versionId != null">
+        #{versionId,jdbcType=BIGINT},
+      </if>
+      <if test="versionName != null">
+        #{versionName,jdbcType=VARCHAR},
+      </if>
+      <if test="rawUrl != null">
+        #{rawUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="rawImagePath != null">
+        #{rawImagePath,jdbcType=VARCHAR},
+      </if>
+      <if test="imagePath != null">
+        #{imagePath,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="viewCnt != null">
+        #{viewCnt,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=BIGINT},
+      </if>
+      <if test="updatedAt != null">
+        #{updatedAt,jdbcType=BIGINT},
+      </if>
+      <if test="isDeleted != null">
+        #{isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="meta != null">
+        #{meta,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="cnMeta != null">
+        #{cnMeta,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="authorInfo != null">
+        #{authorInfo,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.aigccafe.buterin.common.model.md.StableGalleryImagePOExample" resultType="java.lang.Long">
+    select count(*) from stable_gallery_image
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update stable_gallery_image
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.source != null">
+        source = #{record.source,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imageId != null">
+        image_id = #{record.imageId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modelId != null">
+        model_id = #{record.modelId,jdbcType=BIGINT},
+      </if>
+      <if test="record.modelName != null">
+        model_name = #{record.modelName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.versionId != null">
+        version_id = #{record.versionId,jdbcType=BIGINT},
+      </if>
+      <if test="record.versionName != null">
+        version_name = #{record.versionName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rawUrl != null">
+        raw_url = #{record.rawUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rawImagePath != null">
+        raw_image_path = #{record.rawImagePath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imagePath != null">
+        image_path = #{record.imagePath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null">
+        price = #{record.price,jdbcType=DOUBLE},
+      </if>
+      <if test="record.viewCnt != null">
+        view_cnt = #{record.viewCnt,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdAt != null">
+        created_at = #{record.createdAt,jdbcType=BIGINT},
+      </if>
+      <if test="record.updatedAt != null">
+        updated_at = #{record.updatedAt,jdbcType=BIGINT},
+      </if>
+      <if test="record.isDeleted != null">
+        is_deleted = #{record.isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="record.meta != null">
+        meta = #{record.meta,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.cnMeta != null">
+        cn_meta = #{record.cnMeta,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.authorInfo != null">
+        author_info = #{record.authorInfo,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update stable_gallery_image
+    set id = #{record.id,jdbcType=BIGINT},
+      source = #{record.source,jdbcType=VARCHAR},
+      image_id = #{record.imageId,jdbcType=VARCHAR},
+      model_id = #{record.modelId,jdbcType=BIGINT},
+      model_name = #{record.modelName,jdbcType=VARCHAR},
+      version_id = #{record.versionId,jdbcType=BIGINT},
+      version_name = #{record.versionName,jdbcType=VARCHAR},
+      raw_url = #{record.rawUrl,jdbcType=VARCHAR},
+      raw_image_path = #{record.rawImagePath,jdbcType=VARCHAR},
+      image_path = #{record.imagePath,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=DOUBLE},
+      view_cnt = #{record.viewCnt,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=VARCHAR},
+      created_at = #{record.createdAt,jdbcType=BIGINT},
+      updated_at = #{record.updatedAt,jdbcType=BIGINT},
+      is_deleted = #{record.isDeleted,jdbcType=INTEGER},
+      meta = #{record.meta,jdbcType=LONGVARCHAR},
+      cn_meta = #{record.cnMeta,jdbcType=LONGVARCHAR},
+      author_info = #{record.authorInfo,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update stable_gallery_image
+    set id = #{record.id,jdbcType=BIGINT},
+      source = #{record.source,jdbcType=VARCHAR},
+      image_id = #{record.imageId,jdbcType=VARCHAR},
+      model_id = #{record.modelId,jdbcType=BIGINT},
+      model_name = #{record.modelName,jdbcType=VARCHAR},
+      version_id = #{record.versionId,jdbcType=BIGINT},
+      version_name = #{record.versionName,jdbcType=VARCHAR},
+      raw_url = #{record.rawUrl,jdbcType=VARCHAR},
+      raw_image_path = #{record.rawImagePath,jdbcType=VARCHAR},
+      image_path = #{record.imagePath,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=DOUBLE},
+      view_cnt = #{record.viewCnt,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=VARCHAR},
+      created_at = #{record.createdAt,jdbcType=BIGINT},
+      updated_at = #{record.updatedAt,jdbcType=BIGINT},
+      is_deleted = #{record.isDeleted,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aigccafe.buterin.common.model.md.StableGalleryImagePOWithBLOBs">
+    update stable_gallery_image
+    <set>
+      <if test="source != null">
+        source = #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="imageId != null">
+        image_id = #{imageId,jdbcType=VARCHAR},
+      </if>
+      <if test="modelId != null">
+        model_id = #{modelId,jdbcType=BIGINT},
+      </if>
+      <if test="modelName != null">
+        model_name = #{modelName,jdbcType=VARCHAR},
+      </if>
+      <if test="versionId != null">
+        version_id = #{versionId,jdbcType=BIGINT},
+      </if>
+      <if test="versionName != null">
+        version_name = #{versionName,jdbcType=VARCHAR},
+      </if>
+      <if test="rawUrl != null">
+        raw_url = #{rawUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="rawImagePath != null">
+        raw_image_path = #{rawImagePath,jdbcType=VARCHAR},
+      </if>
+      <if test="imagePath != null">
+        image_path = #{imagePath,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="viewCnt != null">
+        view_cnt = #{viewCnt,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=BIGINT},
+      </if>
+      <if test="updatedAt != null">
+        updated_at = #{updatedAt,jdbcType=BIGINT},
+      </if>
+      <if test="isDeleted != null">
+        is_deleted = #{isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="meta != null">
+        meta = #{meta,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="cnMeta != null">
+        cn_meta = #{cnMeta,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="authorInfo != null">
+        author_info = #{authorInfo,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.aigccafe.buterin.common.model.md.StableGalleryImagePOWithBLOBs">
+    update stable_gallery_image
+    set source = #{source,jdbcType=VARCHAR},
+      image_id = #{imageId,jdbcType=VARCHAR},
+      model_id = #{modelId,jdbcType=BIGINT},
+      model_name = #{modelName,jdbcType=VARCHAR},
+      version_id = #{versionId,jdbcType=BIGINT},
+      version_name = #{versionName,jdbcType=VARCHAR},
+      raw_url = #{rawUrl,jdbcType=VARCHAR},
+      raw_image_path = #{rawImagePath,jdbcType=VARCHAR},
+      image_path = #{imagePath,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DOUBLE},
+      view_cnt = #{viewCnt,jdbcType=INTEGER},
+      status = #{status,jdbcType=VARCHAR},
+      created_at = #{createdAt,jdbcType=BIGINT},
+      updated_at = #{updatedAt,jdbcType=BIGINT},
+      is_deleted = #{isDeleted,jdbcType=INTEGER},
+      meta = #{meta,jdbcType=LONGVARCHAR},
+      cn_meta = #{cnMeta,jdbcType=LONGVARCHAR},
+      author_info = #{authorInfo,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aigccafe.buterin.common.model.md.StableGalleryImagePO">
+    update stable_gallery_image
+    set source = #{source,jdbcType=VARCHAR},
+      image_id = #{imageId,jdbcType=VARCHAR},
+      model_id = #{modelId,jdbcType=BIGINT},
+      model_name = #{modelName,jdbcType=VARCHAR},
+      version_id = #{versionId,jdbcType=BIGINT},
+      version_name = #{versionName,jdbcType=VARCHAR},
+      raw_url = #{rawUrl,jdbcType=VARCHAR},
+      raw_image_path = #{rawImagePath,jdbcType=VARCHAR},
+      image_path = #{imagePath,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DOUBLE},
+      view_cnt = #{viewCnt,jdbcType=INTEGER},
+      status = #{status,jdbcType=VARCHAR},
+      created_at = #{createdAt,jdbcType=BIGINT},
+      updated_at = #{updatedAt,jdbcType=BIGINT},
+      is_deleted = #{isDeleted,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByExampleWithBLOBsWithRowbounds" parameterType="com.aigccafe.buterin.common.model.md.StableGalleryImagePOExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from stable_gallery_image
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExampleWithRowbounds" parameterType="com.aigccafe.buterin.common.model.md.StableGalleryImagePOExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from stable_gallery_image
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

@@ -1,0 +1,7 @@
+**/build/
+.gradle/
+.idea/
+gradle/
+buterin-api/src/main/resources/base/static/
+.env
+application-prod.yml

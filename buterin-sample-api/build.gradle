@@ -1,0 +1,8 @@
+apply plugin: 'org.springframework.boot'
+jar.archiveName = 'buterin-sample-api.jar'
+dependencies {
+    compile project(":buterin-service")
+    compile "org.springframework.boot:spring-boot-starter-aop:$springBootVersion"
+    compile "org.springframework.boot:spring-boot-starter-validation:$springBootVersion"
+    compile "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
+}

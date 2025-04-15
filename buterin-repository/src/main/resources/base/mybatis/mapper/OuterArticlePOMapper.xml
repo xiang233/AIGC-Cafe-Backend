@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aigccafe.buterin.repository.mapper.OuterArticlePOMapper">
+  <resultMap id="BaseResultMap" type="com.aigccafe.buterin.common.model.doc.OuterArticlePO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="raw_url" jdbcType="VARCHAR" property="rawUrl" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="cover_path" jdbcType="VARCHAR" property="coverPath" />
+    <result column="brief" jdbcType="VARCHAR" property="brief" />
+    <result column="tags" jdbcType="VARCHAR" property="tags" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="created_at" jdbcType="BIGINT" property="createdAt" />
+    <result column="updated_at" jdbcType="BIGINT" property="updatedAt" />
+    <result column="is_deleted" jdbcType="INTEGER" property="isDeleted" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.aigccafe.buterin.common.model.doc.OuterArticlePOWithBLOBs">
+    <result column="raw_html" jdbcType="LONGVARCHAR" property="rawHtml" />
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+    <result column="html" jdbcType="LONGVARCHAR" property="html" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, raw_url, user_id, title, cover_path, brief, tags, status, created_at, updated_at, 
+    is_deleted
+  </sql>
+  <sql id="Blob_Column_List">
+    raw_html, content, html
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.aigccafe.buterin.common.model.doc.OuterArticlePOExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from outer_article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.aigccafe.buterin.common.model.doc.OuterArticlePOExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from outer_article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from outer_article
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from outer_article
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.aigccafe.buterin.common.model.doc.OuterArticlePOExample">
+    delete from outer_article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.aigccafe.buterin.common.model.doc.OuterArticlePOWithBLOBs" useGeneratedKeys="true">
+    insert into outer_article (raw_url, user_id, title, 
+      cover_path, brief, tags, 
+      status, created_at, updated_at, 
+      is_deleted, raw_html, content, 
+      html)
+    values (#{rawUrl,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, 
+      #{coverPath,jdbcType=VARCHAR}, #{brief,jdbcType=VARCHAR}, #{tags,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{createdAt,jdbcType=BIGINT}, #{updatedAt,jdbcType=BIGINT}, 
+      #{isDeleted,jdbcType=INTEGER}, #{rawHtml,jdbcType=LONGVARCHAR}, #{content,jdbcType=LONGVARCHAR}, 
+      #{html,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.aigccafe.buterin.common.model.doc.OuterArticlePOWithBLOBs" useGeneratedKeys="true">
+    insert into outer_article
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rawUrl != null">
+        raw_url,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="coverPath != null">
+        cover_path,
+      </if>
+      <if test="brief != null">
+        brief,
+      </if>
+      <if test="tags != null">
+        tags,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="updatedAt != null">
+        updated_at,
+      </if>
+      <if test="isDeleted != null">
+        is_deleted,
+      </if>
+      <if test="rawHtml != null">
+        raw_html,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="html != null">
+        html,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rawUrl != null">
+        #{rawUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="coverPath != null">
+        #{coverPath,jdbcType=VARCHAR},
+      </if>
+      <if test="brief != null">
+        #{brief,jdbcType=VARCHAR},
+      </if>
+      <if test="tags != null">
+        #{tags,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=BIGINT},
+      </if>
+      <if test="updatedAt != null">
+        #{updatedAt,jdbcType=BIGINT},
+      </if>
+      <if test="isDeleted != null">
+        #{isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="rawHtml != null">
+        #{rawHtml,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="html != null">
+        #{html,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.aigccafe.buterin.common.model.doc.OuterArticlePOExample" resultType="java.lang.Long">
+    select count(*) from outer_article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update outer_article
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.rawUrl != null">
+        raw_url = #{record.rawUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coverPath != null">
+        cover_path = #{record.coverPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.brief != null">
+        brief = #{record.brief,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tags != null">
+        tags = #{record.tags,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdAt != null">
+        created_at = #{record.createdAt,jdbcType=BIGINT},
+      </if>
+      <if test="record.updatedAt != null">
+        updated_at = #{record.updatedAt,jdbcType=BIGINT},
+      </if>
+      <if test="record.isDeleted != null">
+        is_deleted = #{record.isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="record.rawHtml != null">
+        raw_html = #{record.rawHtml,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.html != null">
+        html = #{record.html,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update outer_article
+    set id = #{record.id,jdbcType=BIGINT},
+      raw_url = #{record.rawUrl,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      title = #{record.title,jdbcType=VARCHAR},
+      cover_path = #{record.coverPath,jdbcType=VARCHAR},
+      brief = #{record.brief,jdbcType=VARCHAR},
+      tags = #{record.tags,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      created_at = #{record.createdAt,jdbcType=BIGINT},
+      updated_at = #{record.updatedAt,jdbcType=BIGINT},
+      is_deleted = #{record.isDeleted,jdbcType=INTEGER},
+      raw_html = #{record.rawHtml,jdbcType=LONGVARCHAR},
+      content = #{record.content,jdbcType=LONGVARCHAR},
+      html = #{record.html,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update outer_article
+    set id = #{record.id,jdbcType=BIGINT},
+      raw_url = #{record.rawUrl,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      title = #{record.title,jdbcType=VARCHAR},
+      cover_path = #{record.coverPath,jdbcType=VARCHAR},
+      brief = #{record.brief,jdbcType=VARCHAR},
+      tags = #{record.tags,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      created_at = #{record.createdAt,jdbcType=BIGINT},
+      updated_at = #{record.updatedAt,jdbcType=BIGINT},
+      is_deleted = #{record.isDeleted,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aigccafe.buterin.common.model.doc.OuterArticlePOWithBLOBs">
+    update outer_article
+    <set>
+      <if test="rawUrl != null">
+        raw_url = #{rawUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="coverPath != null">
+        cover_path = #{coverPath,jdbcType=VARCHAR},
+      </if>
+      <if test="brief != null">
+        brief = #{brief,jdbcType=VARCHAR},
+      </if>
+      <if test="tags != null">
+        tags = #{tags,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=BIGINT},
+      </if>
+      <if test="updatedAt != null">
+        updated_at = #{updatedAt,jdbcType=BIGINT},
+      </if>
+      <if test="isDeleted != null">
+        is_deleted = #{isDeleted,jdbcType=INTEGER},
+      </if>
+      <if test="rawHtml != null">
+        raw_html = #{rawHtml,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="html != null">
+        html = #{html,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.aigccafe.buterin.common.model.doc.OuterArticlePOWithBLOBs">
+    update outer_article
+    set raw_url = #{rawUrl,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=BIGINT},
+      title = #{title,jdbcType=VARCHAR},
+      cover_path = #{coverPath,jdbcType=VARCHAR},
+      brief = #{brief,jdbcType=VARCHAR},
+      tags = #{tags,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      created_at = #{createdAt,jdbcType=BIGINT},
+      updated_at = #{updatedAt,jdbcType=BIGINT},
+      is_deleted = #{isDeleted,jdbcType=INTEGER},
+      raw_html = #{rawHtml,jdbcType=LONGVARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR},
+      html = #{html,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aigccafe.buterin.common.model.doc.OuterArticlePO">
+    update outer_article
+    set raw_url = #{rawUrl,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=BIGINT},
+      title = #{title,jdbcType=VARCHAR},
+      cover_path = #{coverPath,jdbcType=VARCHAR},
+      brief = #{brief,jdbcType=VARCHAR},
+      tags = #{tags,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      created_at = #{createdAt,jdbcType=BIGINT},
+      updated_at = #{updatedAt,jdbcType=BIGINT},
+      is_deleted = #{isDeleted,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByExampleWithBLOBsWithRowbounds" parameterType="com.aigccafe.buterin.common.model.doc.OuterArticlePOExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from outer_article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExampleWithRowbounds" parameterType="com.aigccafe.buterin.common.model.doc.OuterArticlePOExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from outer_article
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

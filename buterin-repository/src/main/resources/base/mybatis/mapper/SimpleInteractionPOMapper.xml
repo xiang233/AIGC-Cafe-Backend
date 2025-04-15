@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aigccafe.buterin.repository.mapper.SimpleInteractionPOMapper">
+  <resultMap id="BaseResultMap" type="com.aigccafe.buterin.common.model.interaction.SimpleInteractionPO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="interaction_type" jdbcType="VARCHAR" property="interactionType" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="target_type" jdbcType="VARCHAR" property="targetType" />
+    <result column="target_id" jdbcType="BIGINT" property="targetId" />
+    <result column="value" jdbcType="DOUBLE" property="value" />
+    <result column="ext" jdbcType="VARCHAR" property="ext" />
+    <result column="created_at" jdbcType="BIGINT" property="createdAt" />
+    <result column="updated_at" jdbcType="BIGINT" property="updatedAt" />
+    <result column="is_deleted" jdbcType="INTEGER" property="isDeleted" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, interaction_type, user_id, target_type, target_id, value, ext, created_at, updated_at, 
+    is_deleted
+  </sql>
+  <select id="selectByExample" parameterType="com.aigccafe.buterin.common.model.interaction.SimpleInteractionPOExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from simple_interaction
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from simple_interaction
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from simple_interaction
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.aigccafe.buterin.common.model.interaction.SimpleInteractionPOExample">
+    delete from simple_interaction
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.aigccafe.buterin.common.model.interaction.SimpleInteractionPO" useGeneratedKeys="true">
+    insert into simple_interaction (interaction_type, user_id, target_type, 
+      target_id, value, ext, 
+      created_at, updated_at, is_deleted
+      )
+    values (#{interactionType,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, #{targetType,jdbcType=VARCHAR}, 
+      #{targetId,jdbcType=BIGINT}, #{value,jdbcType=DOUBLE}, #{ext,jdbcType=VARCHAR}, 
+      #{createdAt,jdbcType=BIGINT}, #{updatedAt,jdbcType=BIGINT}, #{isDeleted,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.aigccafe.buterin.common.model.interaction.SimpleInteractionPO" useGeneratedKeys="true">
+    insert into simple_interaction
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="interactionType != null">
+        interaction_type,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="targetType != null">
+        target_type,
+      </if>
+      <if test="targetId != null">
+        target_id,
+      </if>
+      <if test="value != null">
+        value,
+      </if>
+      <if test="ext != null">
+        ext,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="updatedAt != null">
+        updated_at,
+      </if>
+      <if test="isDeleted != null">
+        is_deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="interactionType != null">
+        #{interactionType,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="targetType != null">
+        #{targetType,jdbcType=VARCHAR},
+      </if>
+      <if test="targetId != null">
+        #{targetId,jdbcType=BIGINT},
+      </if>
+      <if test="value != null">
+        #{value,jdbcType=DOUBLE},
+      </if>
+      <if test="ext != null">
+        #{ext,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=BIGINT},
+      </if>
+      <if test="updatedAt != null">
+        #{updatedAt,jdbcType=BIGINT},
+      </if>
+      <if test="isDeleted != null">
+        #{isDeleted,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.aigccafe.buterin.common.model.interaction.SimpleInteractionPOExample" resultType="java.lang.Long">
+    select count(*) from simple_interaction
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update simple_interaction
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.interactionType != null">
+        interaction_type = #{record.interactionType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.targetType != null">
+        target_type = #{record.targetType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.targetId != null">
+        target_id = #{record.targetId,jdbcType=BIGINT},
+      </if>
+      <if test="record.value != null">
+        value = #{record.value,jdbcType=DOUBLE},
+      </if>
+      <if test="record.ext != null">
+        ext = #{record.ext,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdAt != null">
+        created_at = #{record.createdAt,jdbcType=BIGINT},
+      </if>
+      <if test="record.updatedAt != null">
+        updated_at = #{record.updatedAt,jdbcType=BIGINT},
+      </if>
+      <if test="record.isDeleted != null">
+        is_deleted = #{record.isDeleted,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update simple_interaction
+    set id = #{record.id,jdbcType=BIGINT},
+      interaction_type = #{record.interactionType,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      target_type = #{record.targetType,jdbcType=VARCHAR},
+      target_id = #{record.targetId,jdbcType=BIGINT},
+      value = #{record.value,jdbcType=DOUBLE},
+      ext = #{record.ext,jdbcType=VARCHAR},
+      created_at = #{record.createdAt,jdbcType=BIGINT},
+      updated_at = #{record.updatedAt,jdbcType=BIGINT},
+      is_deleted = #{record.isDeleted,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aigccafe.buterin.common.model.interaction.SimpleInteractionPO">
+    update simple_interaction
+    <set>
+      <if test="interactionType != null">
+        interaction_type = #{interactionType,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="targetType != null">
+        target_type = #{targetType,jdbcType=VARCHAR},
+      </if>
+      <if test="targetId != null">
+        target_id = #{targetId,jdbcType=BIGINT},
+      </if>
+      <if test="value != null">
+        value = #{value,jdbcType=DOUBLE},
+      </if>
+      <if test="ext != null">
+        ext = #{ext,jdbcType=VARCHAR},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=BIGINT},
+      </if>
+      <if test="updatedAt != null">
+        updated_at = #{updatedAt,jdbcType=BIGINT},
+      </if>
+      <if test="isDeleted != null">
+        is_deleted = #{isDeleted,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aigccafe.buterin.common.model.interaction.SimpleInteractionPO">
+    update simple_interaction
+    set interaction_type = #{interactionType,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=BIGINT},
+      target_type = #{targetType,jdbcType=VARCHAR},
+      target_id = #{targetId,jdbcType=BIGINT},
+      value = #{value,jdbcType=DOUBLE},
+      ext = #{ext,jdbcType=VARCHAR},
+      created_at = #{createdAt,jdbcType=BIGINT},
+      updated_at = #{updatedAt,jdbcType=BIGINT},
+      is_deleted = #{isDeleted,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByExampleWithRowbounds" parameterType="com.aigccafe.buterin.common.model.interaction.SimpleInteractionPOExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from simple_interaction
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aigccafe.buterin.repository.mapper.CvtModelDetectPOMapper">
+  <resultMap id="BaseResultMap" type="com.aigccafe.buterin.common.model.cvt.CvtModelDetectPO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="model_id" jdbcType="BIGINT" property="modelId" />
+    <result column="model_name" jdbcType="VARCHAR" property="modelName" />
+    <result column="model_type" jdbcType="VARCHAR" property="modelType" />
+    <result column="checkpoint_type" jdbcType="VARCHAR" property="checkpointType" />
+    <result column="request_info" jdbcType="VARCHAR" property="requestInfo" />
+    <result column="rank_info" jdbcType="VARCHAR" property="rankInfo" />
+    <result column="cover_image_data" jdbcType="VARCHAR" property="coverImageData" />
+    <result column="last_version_at" jdbcType="VARCHAR" property="lastVersionAt" />
+    <result column="detail_update" jdbcType="INTEGER" property="detailUpdate" />
+    <result column="created_at" jdbcType="BIGINT" property="createdAt" />
+    <result column="updated_at" jdbcType="BIGINT" property="updatedAt" />
+    <result column="is_deleted" jdbcType="INTEGER" property="isDeleted" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, model_id, model_name, model_type, checkpoint_type, request_info, rank_info, cover_image_data, 
+    last_version_at, detail_update, created_at, updated_at, is_deleted
+  </sql>
+  <select id="selectByExample" parameterType="com.aigccafe.buterin.common.model.cvt.CvtModelDetectPOExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from cvt_model_detect
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cvt_model_detect
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from cvt_model_detect
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.aigccafe.buterin.common.model.cvt.CvtModelDetectPOExample">
+    delete from cvt_model_detect
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.aigccafe.buterin.common.model.cvt.CvtModelDetectPO" useGeneratedKeys="true">
+    insert into cvt_model_detect (model_id, model_name, model_type, 
+      checkpoint_type, request_info, rank_info, 
+      cover_image_data, last_version_at, detail_update, 
+      created_at, updated_at, is_deleted
+      )
+    values (#{modelId,jdbcType=BIGINT}, #{modelName,jdbcType=VARCHAR}, #{modelType,jdbcType=VARCHAR}, 
+      #{checkpointType,jdbcType=VARCHAR}, #{requestInfo,jdbcType=VARCHAR}, #{rankInfo,jdbcType=VARCHAR}, 
+      #{coverImageData,jdbcType=VARCHAR}, #{lastVersionAt,jdbcType=VARCHAR}, #{detailUpdate,jdbcType=INTEGER}, 
+      #{createdAt,jdbcType=BIGINT}, #{updatedAt,jdbcType=BIGINT}, #{isDeleted,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.aigccafe.buterin.common.model.cvt.CvtModelDetectPO" useGeneratedKeys="true">
+    insert into cvt_model_detect
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="modelId != null">
+        model_id,
+      </if>
+      <if test="modelName != null">
+        model_name,
+      </if>
+      <if test="modelType != null">
+        model_type,
+      </if>
+      <if test="checkpointType != null">
+        checkpoint_type,
+      </if>
+      <if test="requestInfo != null">
+        request_info,
+      </if>
+      <if test="rankInfo != null">
+        rank_info,
+      </if>
+      <if test="coverImageData != null">
+        cover_image_data,
+      </if>
+      <if test="lastVersionAt != null">
+        last_version_at,
+      </if>
+      <if test="detailUpdate != null">
+        detail_update,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="updatedAt != null">
+        updated_at,
+      </if>
+      <if test="isDeleted != null">
+        is_deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="modelId != null">
+        #{modelId,jdbcType=BIGINT},
+      </if>
+      <if test="modelName != null">
+        #{modelName,jdbcType=VARCHAR},
+      </if>
+      <if test="modelType != null">
+        #{modelType,jdbcType=VARCHAR},
+      </if>
+      <if test="checkpointType != null">
+        #{checkpointType,jdbcType=VARCHAR},
+      </if>
+      <if test="requestInfo != null">
+        #{requestInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="rankInfo != null">
+        #{rankInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="coverImageData != null">
+        #{coverImageData,jdbcType=VARCHAR},
+      </if>
+      <if test="lastVersionAt != null">
+        #{lastVersionAt,jdbcType=VARCHAR},
+      </if>
+      <if test="detailUpdate != null">
+        #{detailUpdate,jdbcType=INTEGER},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=BIGINT},
+      </if>
+      <if test="updatedAt != null">
+        #{updatedAt,jdbcType=BIGINT},
+      </if>
+      <if test="isDeleted != null">
+        #{isDeleted,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.aigccafe.buterin.common.model.cvt.CvtModelDetectPOExample" resultType="java.lang.Long">
+    select count(*) from cvt_model_detect
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update cvt_model_detect
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.modelId != null">
+        model_id = #{record.modelId,jdbcType=BIGINT},
+      </if>
+      <if test="record.modelName != null">
+        model_name = #{record.modelName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modelType != null">
+        model_type = #{record.modelType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checkpointType != null">
+        checkpoint_type = #{record.checkpointType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.requestInfo != null">
+        request_info = #{record.requestInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rankInfo != null">
+        rank_info = #{record.rankInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coverImageData != null">
+        cover_image_data = #{record.coverImageData,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastVersionAt != null">
+        last_version_at = #{record.lastVersionAt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detailUpdate != null">
+        detail_update = #{record.detailUpdate,jdbcType=INTEGER},
+      </if>
+      <if test="record.createdAt != null">
+        created_at = #{record.createdAt,jdbcType=BIGINT},
+      </if>
+      <if test="record.updatedAt != null">
+        updated_at = #{record.updatedAt,jdbcType=BIGINT},
+      </if>
+      <if test="record.isDeleted != null">
+        is_deleted = #{record.isDeleted,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update cvt_model_detect
+    set id = #{record.id,jdbcType=BIGINT},
+      model_id = #{record.modelId,jdbcType=BIGINT},
+      model_name = #{record.modelName,jdbcType=VARCHAR},
+      model_type = #{record.modelType,jdbcType=VARCHAR},
+      checkpoint_type = #{record.checkpointType,jdbcType=VARCHAR},
+      request_info = #{record.requestInfo,jdbcType=VARCHAR},
+      rank_info = #{record.rankInfo,jdbcType=VARCHAR},
+      cover_image_data = #{record.coverImageData,jdbcType=VARCHAR},
+      last_version_at = #{record.lastVersionAt,jdbcType=VARCHAR},
+      detail_update = #{record.detailUpdate,jdbcType=INTEGER},
+      created_at = #{record.createdAt,jdbcType=BIGINT},
+      updated_at = #{record.updatedAt,jdbcType=BIGINT},
+      is_deleted = #{record.isDeleted,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aigccafe.buterin.common.model.cvt.CvtModelDetectPO">
+    update cvt_model_detect
+    <set>
+      <if test="modelId != null">
+        model_id = #{modelId,jdbcType=BIGINT},
+      </if>
+      <if test="modelName != null">
+        model_name = #{modelName,jdbcType=VARCHAR},
+      </if>
+      <if test="modelType != null">
+        model_type = #{modelType,jdbcType=VARCHAR},
+      </if>
+      <if test="checkpointType != null">
+        checkpoint_type = #{checkpointType,jdbcType=VARCHAR},
+      </if>
+      <if test="requestInfo != null">
+        request_info = #{requestInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="rankInfo != null">
+        rank_info = #{rankInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="coverImageData != null">
+        cover_image_data = #{coverImageData,jdbcType=VARCHAR},
+      </if>
+      <if test="lastVersionAt != null">
+        last_version_at = #{lastVersionAt,jdbcType=VARCHAR},
+      </if>
+      <if test="detailUpdate != null">
+        detail_update = #{detailUpdate,jdbcType=INTEGER},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=BIGINT},
+      </if>
+      <if test="updatedAt != null">
+        updated_at = #{updatedAt,jdbcType=BIGINT},
+      </if>
+      <if test="isDeleted != null">
+        is_deleted = #{isDeleted,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aigccafe.buterin.common.model.cvt.CvtModelDetectPO">
+    update cvt_model_detect
+    set model_id = #{modelId,jdbcType=BIGINT},
+      model_name = #{modelName,jdbcType=VARCHAR},
+      model_type = #{modelType,jdbcType=VARCHAR},
+      checkpoint_type = #{checkpointType,jdbcType=VARCHAR},
+      request_info = #{requestInfo,jdbcType=VARCHAR},
+      rank_info = #{rankInfo,jdbcType=VARCHAR},
+      cover_image_data = #{coverImageData,jdbcType=VARCHAR},
+      last_version_at = #{lastVersionAt,jdbcType=VARCHAR},
+      detail_update = #{detailUpdate,jdbcType=INTEGER},
+      created_at = #{createdAt,jdbcType=BIGINT},
+      updated_at = #{updatedAt,jdbcType=BIGINT},
+      is_deleted = #{isDeleted,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByExampleWithRowbounds" parameterType="com.aigccafe.buterin.common.model.cvt.CvtModelDetectPOExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from cvt_model_detect
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

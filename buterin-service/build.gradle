@@ -1,0 +1,11 @@
+plugins {
+    id 'java'
+}
+dependencies {
+    compile project(":buterin-repository")
+    compile "javax.mail:mail:1.4.7"
+    compile "com.sun.mail:javax.mail:1.6.2"
+    compile "com.aliyun:dysmsapi20170525:2.0.23"
+    //compile "org.springframework.boot:spring-boot-starter-data-redis:$springBootVersion"
+    //compile "org.springframework.session:spring-session-data-redis:$springSessionDataRedisVersion"
+}

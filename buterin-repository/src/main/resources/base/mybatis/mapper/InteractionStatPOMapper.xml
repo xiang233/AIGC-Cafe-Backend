@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aigccafe.buterin.repository.mapper.InteractionStatPOMapper">
+  <resultMap id="BaseResultMap" type="com.aigccafe.buterin.common.model.interaction.InteractionStatPO">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="target_type" jdbcType="VARCHAR" property="targetType" />
+    <result column="target_id" jdbcType="BIGINT" property="targetId" />
+    <result column="like_count" jdbcType="BIGINT" property="likeCount" />
+    <result column="store_count" jdbcType="BIGINT" property="storeCount" />
+    <result column="comment_count" jdbcType="BIGINT" property="commentCount" />
+    <result column="download_count" jdbcType="BIGINT" property="downloadCount" />
+    <result column="score_count" jdbcType="BIGINT" property="scoreCount" />
+    <result column="score_sum" jdbcType="DOUBLE" property="scoreSum" />
+    <result column="agree_count" jdbcType="BIGINT" property="agreeCount" />
+    <result column="disagree_count" jdbcType="BIGINT" property="disagreeCount" />
+    <result column="support_count" jdbcType="BIGINT" property="supportCount" />
+    <result column="un_support_count" jdbcType="BIGINT" property="unSupportCount" />
+    <result column="view_count" jdbcType="BIGINT" property="viewCount" />
+    <result column="created_at" jdbcType="BIGINT" property="createdAt" />
+    <result column="updated_at" jdbcType="BIGINT" property="updatedAt" />
+    <result column="is_deleted" jdbcType="INTEGER" property="isDeleted" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, target_type, target_id, like_count, store_count, comment_count, download_count, 
+    score_count, score_sum, agree_count, disagree_count, support_count, un_support_count, 
+    view_count, created_at, updated_at, is_deleted
+  </sql>
+  <select id="selectByExample" parameterType="com.aigccafe.buterin.common.model.interaction.InteractionStatPOExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from interaction_stat
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from interaction_stat
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from interaction_stat
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.aigccafe.buterin.common.model.interaction.InteractionStatPOExample">
+    delete from interaction_stat
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.aigccafe.buterin.common.model.interaction.InteractionStatPO" useGeneratedKeys="true">
+    insert into interaction_stat (target_type, target_id, like_count, 
+      store_count, comment_count, download_count, 
+      score_count, score_sum, agree_count, 
+      disagree_count, support_count, un_support_count, 
+      view_count, created_at, updated_at, 
+      is_deleted)
+    values (#{targetType,jdbcType=VARCHAR}, #{targetId,jdbcType=BIGINT}, #{likeCount,jdbcType=BIGINT}, 
+      #{storeCount,jdbcType=BIGINT}, #{commentCount,jdbcType=BIGINT}, #{downloadCount,jdbcType=BIGINT}, 
+      #{scoreCount,jdbcType=BIGINT}, #{scoreSum,jdbcType=DOUBLE}, #{agreeCount,jdbcType=BIGINT}, 
+      #{disagreeCount,jdbcType=BIGINT}, #{supportCount,jdbcType=BIGINT}, #{unSupportCount,jdbcType=BIGINT}, 
+      #{viewCount,jdbcType=BIGINT}, #{createdAt,jdbcType=BIGINT}, #{updatedAt,jdbcType=BIGINT}, 
+      #{isDeleted,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.aigccafe.buterin.common.model.interaction.InteractionStatPO" useGeneratedKeys="true">
+    insert into interaction_stat
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="targetType != null">
+        target_type,
+      </if>
+      <if test="targetId != null">
+        target_id,
+      </if>
+      <if test="likeCount != null">
+        like_count,
+      </if>
+      <if test="storeCount != null">
+        store_count,
+      </if>
+      <if test="commentCount != null">
+        comment_count,
+      </if>
+      <if test="downloadCount != null">
+        download_count,
+      </if>
+      <if test="scoreCount != null">
+        score_count,
+      </if>
+      <if test="scoreSum != null">
+        score_sum,
+      </if>
+      <if test="agreeCount != null">
+        agree_count,
+      </if>
+      <if test="disagreeCount != null">
+        disagree_count,
+      </if>
+      <if test="supportCount != null">
+        support_count,
+      </if>
+      <if test="unSupportCount != null">
+        un_support_count,
+      </if>
+      <if test="viewCount != null">
+        view_count,
+      </if>
+      <if test="createdAt != null">
+        created_at,
+      </if>
+      <if test="updatedAt != null">
+        updated_at,
+      </if>
+      <if test="isDeleted != null">
+        is_deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="targetType != null">
+        #{targetType,jdbcType=VARCHAR},
+      </if>
+      <if test="targetId != null">
+        #{targetId,jdbcType=BIGINT},
+      </if>
+      <if test="likeCount != null">
+        #{likeCount,jdbcType=BIGINT},
+      </if>
+      <if test="storeCount != null">
+        #{storeCount,jdbcType=BIGINT},
+      </if>
+      <if test="commentCount != null">
+        #{commentCount,jdbcType=BIGINT},
+      </if>
+      <if test="downloadCount != null">
+        #{downloadCount,jdbcType=BIGINT},
+      </if>
+      <if test="scoreCount != null">
+        #{scoreCount,jdbcType=BIGINT},
+      </if>
+      <if test="scoreSum != null">
+        #{scoreSum,jdbcType=DOUBLE},
+      </if>
+      <if test="agreeCount != null">
+        #{agreeCount,jdbcType=BIGINT},
+      </if>
+      <if test="disagreeCount != null">
+        #{disagreeCount,jdbcType=BIGINT},
+      </if>
+      <if test="supportCount != null">
+        #{supportCount,jdbcType=BIGINT},
+      </if>
+      <if test="unSupportCount != null">
+        #{unSupportCount,jdbcType=BIGINT},
+      </if>
+      <if test="viewCount != null">
+        #{viewCount,jdbcType=BIGINT},
+      </if>
+      <if test="createdAt != null">
+        #{createdAt,jdbcType=BIGINT},
+      </if>
+      <if test="updatedAt != null">
+        #{updatedAt,jdbcType=BIGINT},
+      </if>
+      <if test="isDeleted != null">
+        #{isDeleted,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.aigccafe.buterin.common.model.interaction.InteractionStatPOExample" resultType="java.lang.Long">
+    select count(*) from interaction_stat
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update interaction_stat
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.targetType != null">
+        target_type = #{record.targetType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.targetId != null">
+        target_id = #{record.targetId,jdbcType=BIGINT},
+      </if>
+      <if test="record.likeCount != null">
+        like_count = #{record.likeCount,jdbcType=BIGINT},
+      </if>
+      <if test="record.storeCount != null">
+        store_count = #{record.storeCount,jdbcType=BIGINT},
+      </if>
+      <if test="record.commentCount != null">
+        comment_count = #{record.commentCount,jdbcType=BIGINT},
+      </if>
+      <if test="record.downloadCount != null">
+        download_count = #{record.downloadCount,jdbcType=BIGINT},
+      </if>
+      <if test="record.scoreCount != null">
+        score_count = #{record.scoreCount,jdbcType=BIGINT},
+      </if>
+      <if test="record.scoreSum != null">
+        score_sum = #{record.scoreSum,jdbcType=DOUBLE},
+      </if>
+      <if test="record.agreeCount != null">
+        agree_count = #{record.agreeCount,jdbcType=BIGINT},
+      </if>
+      <if test="record.disagreeCount != null">
+        disagree_count = #{record.disagreeCount,jdbcType=BIGINT},
+      </if>
+      <if test="record.supportCount != null">
+        support_count = #{record.supportCount,jdbcType=BIGINT},
+      </if>
+      <if test="record.unSupportCount != null">
+        un_support_count = #{record.unSupportCount,jdbcType=BIGINT},
+      </if>
+      <if test="record.viewCount != null">
+        view_count = #{record.viewCount,jdbcType=BIGINT},
+      </if>
+      <if test="record.createdAt != null">
+        created_at = #{record.createdAt,jdbcType=BIGINT},
+      </if>
+      <if test="record.updatedAt != null">
+        updated_at = #{record.updatedAt,jdbcType=BIGINT},
+      </if>
+      <if test="record.isDeleted != null">
+        is_deleted = #{record.isDeleted,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update interaction_stat
+    set id = #{record.id,jdbcType=BIGINT},
+      target_type = #{record.targetType,jdbcType=VARCHAR},
+      target_id = #{record.targetId,jdbcType=BIGINT},
+      like_count = #{record.likeCount,jdbcType=BIGINT},
+      store_count = #{record.storeCount,jdbcType=BIGINT},
+      comment_count = #{record.commentCount,jdbcType=BIGINT},
+      download_count = #{record.downloadCount,jdbcType=BIGINT},
+      score_count = #{record.scoreCount,jdbcType=BIGINT},
+      score_sum = #{record.scoreSum,jdbcType=DOUBLE},
+      agree_count = #{record.agreeCount,jdbcType=BIGINT},
+      disagree_count = #{record.disagreeCount,jdbcType=BIGINT},
+      support_count = #{record.supportCount,jdbcType=BIGINT},
+      un_support_count = #{record.unSupportCount,jdbcType=BIGINT},
+      view_count = #{record.viewCount,jdbcType=BIGINT},
+      created_at = #{record.createdAt,jdbcType=BIGINT},
+      updated_at = #{record.updatedAt,jdbcType=BIGINT},
+      is_deleted = #{record.isDeleted,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aigccafe.buterin.common.model.interaction.InteractionStatPO">
+    update interaction_stat
+    <set>
+      <if test="targetType != null">
+        target_type = #{targetType,jdbcType=VARCHAR},
+      </if>
+      <if test="targetId != null">
+        target_id = #{targetId,jdbcType=BIGINT},
+      </if>
+      <if test="likeCount != null">
+        like_count = #{likeCount,jdbcType=BIGINT},
+      </if>
+      <if test="storeCount != null">
+        store_count = #{storeCount,jdbcType=BIGINT},
+      </if>
+      <if test="commentCount != null">
+        comment_count = #{commentCount,jdbcType=BIGINT},
+      </if>
+      <if test="downloadCount != null">
+        download_count = #{downloadCount,jdbcType=BIGINT},
+      </if>
+      <if test="scoreCount != null">
+        score_count = #{scoreCount,jdbcType=BIGINT},
+      </if>
+      <if test="scoreSum != null">
+        score_sum = #{scoreSum,jdbcType=DOUBLE},
+      </if>
+      <if test="agreeCount != null">
+        agree_count = #{agreeCount,jdbcType=BIGINT},
+      </if>
+      <if test="disagreeCount != null">
+        disagree_count = #{disagreeCount,jdbcType=BIGINT},
+      </if>
+      <if test="supportCount != null">
+        support_count = #{supportCount,jdbcType=BIGINT},
+      </if>
+      <if test="unSupportCount != null">
+        un_support_count = #{unSupportCount,jdbcType=BIGINT},
+      </if>
+      <if test="viewCount != null">
+        view_count = #{viewCount,jdbcType=BIGINT},
+      </if>
+      <if test="createdAt != null">
+        created_at = #{createdAt,jdbcType=BIGINT},
+      </if>
+      <if test="updatedAt != null">
+        updated_at = #{updatedAt,jdbcType=BIGINT},
+      </if>
+      <if test="isDeleted != null">
+        is_deleted = #{isDeleted,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aigccafe.buterin.common.model.interaction.InteractionStatPO">
+    update interaction_stat
+    set target_type = #{targetType,jdbcType=VARCHAR},
+      target_id = #{targetId,jdbcType=BIGINT},
+      like_count = #{likeCount,jdbcType=BIGINT},
+      store_count = #{storeCount,jdbcType=BIGINT},
+      comment_count = #{commentCount,jdbcType=BIGINT},
+      download_count = #{downloadCount,jdbcType=BIGINT},
+      score_count = #{scoreCount,jdbcType=BIGINT},
+      score_sum = #{scoreSum,jdbcType=DOUBLE},
+      agree_count = #{agreeCount,jdbcType=BIGINT},
+      disagree_count = #{disagreeCount,jdbcType=BIGINT},
+      support_count = #{supportCount,jdbcType=BIGINT},
+      un_support_count = #{unSupportCount,jdbcType=BIGINT},
+      view_count = #{viewCount,jdbcType=BIGINT},
+      created_at = #{createdAt,jdbcType=BIGINT},
+      updated_at = #{updatedAt,jdbcType=BIGINT},
+      is_deleted = #{isDeleted,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="selectByExampleWithRowbounds" parameterType="com.aigccafe.buterin.common.model.interaction.InteractionStatPOExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from interaction_stat
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>
