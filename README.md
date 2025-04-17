@@ -1,7 +1,5 @@
 # aigccafe_backend
 
-# AIGC Café Project Summary
-
 ## 1. Overview & Goals
 
 AIGC Café is a full-stack web application designed for sharing AI-generated artwork within a community-driven platform. It supports user-generated uploads, interactions, and browsing of AI-created content, fostering a central hub for digital creatives engaging with generative media.
